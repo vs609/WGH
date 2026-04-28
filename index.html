@@ -3,90 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WSG Kasino - Neon</title>
+    <title>Roulette Wheel Casino Game</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background: #0a0e27;
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            padding-top: 50px;
-        }
-
-        .neon-container {
-            position: relative;
-            display: flex;
-            gap: 20px;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-
-        /* Neon Text Effect */
-        .neon-text {
-            font-size: 64px;
-            font-weight: bold;
-            color: #0ff;
-            text-shadow: 
+        .roulette {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 20px solid #444;
+            position: relative;
+            animation: spin 5s ease-in-out infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .neon {
+            text-shadow:
+                0 0 5px #0ff,
                 0 0 10px #0ff,
-                0 0 20px #0ff,
-                0 0 30px #0ff,
-                0 0 40px #0ff,
-                0 0 70px #0ff,
-                0 0 80px #0ff,
-                0 0 100px #0ff,
-                0 0 150px #0ff;
-            letter-spacing: 3px;
-            animation: neon-flicker 2s infinite;
-        }
-
-        .neon-text.pink {
-            color: #ff006e;
-            text-shadow: 
-                0 0 10px #ff006e,
-                0 0 20px #ff006e,
-                0 0 30px #ff006e,
-                0 0 40px #ff006e,
-                0 0 70px #ff006e,
-                0 0 80px #ff006e,
-                0 0 100px #ff006e,
-                0 0 150px #ff006e;
-        }
-
-        /* Animations */
-        @keyframes neon-flicker {
-            0%, 100% {
-                text-shadow: 
-                    0 0 10px #0ff,
-                    0 0 20px #0ff,
-                    0 0 30px #0ff,
-                    0 0 40px #0ff,
-                    0 0 70px #0ff,
-                    0 0 80px #0ff,
-                    0 0 100px #0ff,
-                    0 0 150px #0ff;
-            }
-            50% {
-                text-shadow: 
-                    0 0 5px #0ff,
-                    0 0 10px #0ff,
-                    0 0 15px #0ff,
-                    0 0 20px #0ff,
-                    0 0 35px #0ff,
-                    0 0 40px #0ff,
-                    0 0 50px #0ff,
-                    0 0 75px #0ff;
-            }
+                0 0 15px #0ff,
+                0 0 20px #ff8c00;
         }
     </style>
 </head>
 <body>
-    <div*
+    <h1 class='neon'>Roulette Wheel</h1>
+    <div class='roulette' id='roulette'></div>
+    <input type='number' id='bet' placeholder='Place your bet' />
+    <button id='spinButton'>Spin the Wheel!</button>
+    <p id='result'></p>
+    <script>
+        const spinButton = document.getElementById('spinButton');
+        const resultText = document.getElementById('result');
+        let betAmount;
 
+        spinButton.addEventListener('click', () => {
+            betAmount = document.getElementById('bet').value;
+            if(betAmount <= 0) {
+                alert('Please place a valid bet.');
+                return;
+            }
+            const winningNumber = Math.floor(Math.random() * 37);
+            resultText.innerText = `Winning Number: ${winningNumber}`;
+            // Implement betting functionality here
+        });
+    </script>
+</body>
+</html>
