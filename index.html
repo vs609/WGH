@@ -1,192 +1,188 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WSG Kasino</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #050510;
-      color: white;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      background: rgba(15,15,35,0.95);
-      border: 2px solid #00f7ff;
-      border-radius: 24px;
-      box-shadow: 0 0 30px #00f7ff;
-      padding: 30px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 42px;
-      color: #00f7ff;
-      text-shadow: 0 0 20px #00f7ff;
-      margin-bottom: 30px;
-    }
-
-    .game-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .player-zone {
-      flex: 1;
-      min-width: 250px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .bet-box {
-      background: rgba(0,255,255,0.08);
-      border: 2px solid #00f7ff;
-      border-radius: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 0 20px rgba(0,247,255,0.4);
-      transition: 0.3s;
-    }
-
-    .puck-zone {
-      width: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .puck {
-      width: 80px;
-      height: 80px;
-      background: #ff00d4;
-      border-radius: 50%;
-      box-shadow: 0 0 25px #ff00d4;
-      transition: transform 1s ease;
-    }
-
-    input {
-      width: 180px;
-      padding: 12px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      text-align: center;
-      outline: none;
-    }
-
-    button {
-      background: #00f7ff;
-      color: black;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 20px #00f7ff;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    .result {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 24px;
-      color: #fff;
-      min-height: 40px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Игра Кальмара</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:#050510;
+  color:white;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.container{
+  width:100%;
+  max-width:1100px;
+  background:#0d0d1f;
+  border:2px solid #00f7ff;
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 0 35px rgba(0,247,255,0.35);
+}
+h1{
+  text-align:center;
+  font-size:42px;
+  color:#00f7ff;
+  text-shadow:0 0 20px #00f7ff;
+  margin-bottom:25px;
+}
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:30px;
+}
+.wheel-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  margin-bottom:30px;
+}
+.pointer{
+  position:absolute;
+  top:-10px;
+  width:0;
+  height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:35px solid #ff00cc;
+  filter:drop-shadow(0 0 10px #ff00cc);
+  z-index:5;
+}
+.wheel{
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  border:6px solid #00f7ff;
+  box-shadow:0 0 30px #00f7ff;
+  background:conic-gradient(
+    #00f7ff 0deg 90deg,
+    #ff00cc 90deg 180deg,
+    #00ff88 180deg 270deg,
+    #ffd000 270deg 360deg
+  );
+  transition:transform 4s cubic-bezier(.17,.67,.15,1);
+}
+.players{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+.card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(0,247,255,0.35);
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+}
+.card h2{
+  margin-bottom:12px;
+  color:#00f7ff;
+}
+input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  margin-top:10px;
+  text-align:center;
+  font-size:16px;
+}
+button{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#00f7ff;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 20px #00f7ff;
+}
+button:hover{transform:scale(1.02);}
+.result{
+  margin-top:25px;
+  text-align:center;
+  font-size:24px;
+  min-height:40px;
+}
+.bank{
+  text-align:center;
+  margin-top:15px;
+  font-size:20px;
+  color:#ffd000;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>WSG Kasino</h1>
+<div class="container">
+  <h1>ИГРА КАЛЬМАРА</h1>
+  <div class="subtitle">MRKT style • Neon TON Game</div>
 
-    <div class="game-area">
-      <div class="player-zone">
-        <h2>Игрок 1</h2>
-        <div id="box1" class="bet-box" style="width: 180px; height: 180px;">1 TON</div>
-        <input id="bet1" type="number" placeholder="Ставка TON" min="1" />
-      </div>
-
-      <div class="puck-zone">
-        <div id="puck" class="puck"></div>
-        <button onclick="startGame()">Начать</button>
-      </div>
-
-      <div class="player-zone">
-        <h2>Игрок 2</h2>
-        <div id="box2" class="bet-box" style="width: 220px; height: 220px;">5 TON</div>
-        <input id="bet2" type="number" placeholder="Ставка TON" min="1" />
-      </div>
-    </div>
-
-    <div id="result" class="result"></div>
+  <div class="wheel-wrap">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
   </div>
 
-  <script>
-    function updateBoxes(b1, b2) {
-      const box1 = document.getElementById('box1');
-      const box2 = document.getElementById('box2');
+  <div class="bank" id="bank">Общий банк: 0 TON</div>
 
-      const size1 = 120 + (b1 * 15);
-      const size2 = 120 + (b2 * 15);
+  <div class="players">
+    <div class="card">
+      <h2>Игрок 1</h2>
+      <input id="bet1" type="number" min="1" placeholder="Ставка TON">
+    </div>
 
-      box1.style.width = size1 + 'px';
-      box1.style.height = size1 + 'px';
-      box1.textContent = b1 + ' TON';
+    <div class="card">
+      <h2>Игрок 2</h2>
+      <input id="bet2" type="number" min="1" placeholder="Ставка TON">
+    </div>
 
-      box2.style.width = size2 + 'px';
-      box2.style.height = size2 + 'px';
-      box2.textContent = b2 + ' TON';
-    }
+    <div class="card">
+      <h2>Запуск</h2>
+      <button onclick="spinWheel()">Крутить рулетку</button>
+    </div>
+  </div>
 
-    function startGame() {
-      const bet1 = parseInt(document.getElementById('bet1').value) || 1;
-      const bet2 = parseInt(document.getElementById('bet2').value) || 1;
-      const puck = document.getElementById('puck');
-      const result = document.getElementById('result');
+  <div class="result" id="result"></div>
+</div>
 
-      updateBoxes(bet1, bet2);
-      result.textContent = 'Шайба крутится...';
+<script>
+let currentRotation = 0;
 
-      const total = bet1 + bet2;
-      const random = Math.random() * total;
-      const winner = random <= bet1 ? 1 : 2;
+function spinWheel(){
+  const bet1 = parseInt(document.getElementById('bet1').value) || 1;
+  const bet2 = parseInt(document.getElementById('bet2').value) || 1;
+  const total = bet1 + bet2;
 
-      puck.style.transform = winner === 1
-        ? 'translateX(-180px)'
-        : 'translateX(180px)';
+  document.getElementById('bank').textContent = `Общий банк: ${total} TON`;
 
-      setTimeout(() => {
-        result.textContent = `Победил Игрок ${winner}!`;
-      }, 1200);
-    }
-  </script>
+  const chance1 = (bet1 / total) * 360;
+  const random = Math.random() * 360;
+
+  let winner;
+  if(random <= chance1){
+    winner = 1;
+  } else {
+    winner = 2;
+  }
+
+  const extraSpin = 1440 + Math.floor(Math.random() * 360);
+  currentRotation += extraSpin;
+
+  document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
+  document.getElementById('result').textContent = 'Рулетка крутится...';
+
+  setTimeout(()=>{
+    document.getElementById('result').textContent = `Победил Игрок ${winner} • Забрал ${total} TON`;
+  },4200);
+}
+</script>
 </body>
 </html>
