@@ -132,6 +132,7 @@ button:hover{transform:scale(1.02);}
   </div>
 
   <div class="bank" id="bank">Общий банк: 0 TON</div>
+  <div class="bank" id="chance">Площадь: Игрок 1 — 100% | Игрок 2 — 0%</div>
 
   <div class="players">
     <div class="card">
@@ -162,6 +163,10 @@ function spinWheel(){
   const total = bet1 + bet2;
 
   document.getElementById('bank').textContent = `Общий банк: ${total} TON`;
+
+  const percent1 = Math.round((bet1 / total) * 100);
+  const percent2 = 100 - percent1;
+  document.getElementById('chance').textContent = `Площадь: Игрок 1 — ${percent1}% | Игрок 2 — ${percent2}%`;
 
   const chance1 = (bet1 / total) * 360;
   const random = Math.random() * 360;
