@@ -167,15 +167,11 @@ document.getElementById('bet1').addEventListener('input', autoStartCheck);
 document.getElementById('bet2').addEventListener('input', autoStartCheck);
 
 function spinWheel(){
-  const bet1 = parseInt(document.getElementById('bet1').value) || 1;
-  const bet2 = parseInt(document.getElementById('bet2').value) || 1;
+  const bet1 = parseInt(document.getElementById('bet1').value) || 0;
+  const bet2 = parseInt(document.getElementById('bet2').value) || 0;
   const total = bet1 + bet2;
 
   document.getElementById('bank').textContent = `Общий банк: ${total} TON`;
-
-  const percent1 = Math.round((bet1 / total) * 100);
-  const percent2 = 100 - percent1;
-  document.getElementById('chance').textContent = `Площадь: Игрок 1 🔵 — ${percent1}% | Игрок 2 🔴 — ${percent2}%`;
 
   const chance1 = (bet1 / total) * 360;
 
@@ -183,14 +179,9 @@ function spinWheel(){
     #00f7ff 0deg ${chance1}deg,
     #ff4d4d ${chance1}deg 360deg
   )`;
-  const random = Math.random() * 360;
 
-  let winner;
-  if(random <= chance1){
-    winner = 1;
-  } else {
-    winner = 2;
-  }
+  const random = Math.random() * 360;
+  let winner = random <= chance1 ? 1 : 2;
 
   const extraSpin = 1440 + Math.floor(Math.random() * 360);
   currentRotation += extraSpin;
@@ -200,8 +191,15 @@ function spinWheel(){
 
   setTimeout(()=>{
     document.getElementById('result').textContent = `Победил Игрок ${winner} • Забрал ${total} TON`;
+
+    // СБРОС СТАВОК ПОСЛЕ ИГРЫ
+    document.getElementById('bet1').value = '';
+    document.getElementById('bet2').value = '';
+    document.getElementById('bank').textContent = 'Общий банк: 0 TON';
+    document.getElementById('chance').textContent = 'Площадь: Игрок 1 — 100% | Игрок 2 — 0%';
   },4200);
 }
 </script>
 </body>
 </html>
+
