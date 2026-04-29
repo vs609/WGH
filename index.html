@@ -61,10 +61,7 @@ h1{
   border:6px solid #00f7ff;
   box-shadow:0 0 30px #00f7ff;
   background: conic-gradient(
-    #00f7ff 0deg 90deg,
-    #ff4d4d 90deg 180deg,
-    #00ff88 180deg 270deg,
-    #ffd000 270deg 360deg
+    #00f7ff 0deg 360deg
   );
   transition:transform 4s cubic-bezier(.17,.67,.15,1);
 }
@@ -169,6 +166,11 @@ function spinWheel(){
   document.getElementById('chance').textContent = `Площадь: Игрок 1 🔵 — ${percent1}% | Игрок 2 🔴 — ${percent2}%`;
 
   const chance1 = (bet1 / total) * 360;
+
+  document.getElementById('wheel').style.background = `conic-gradient(
+    #00f7ff 0deg ${chance1}deg,
+    #ff4d4d ${chance1}deg 360deg
+  )`;
   const random = Math.random() * 360;
 
   let winner;
