@@ -1,96 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WSG Kasino - Neon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WSG Kasino</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        body {
-            background: #0a0e27;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            padding-top: 50px;
-        }
+    body {
+      background: #050510;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-        .neon-container {
-            position: relative;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(15,15,35,0.95);
+      border: 2px solid #00f7ff;
+      border-radius: 24px;
+      box-shadow: 0 0 30px #00f7ff;
+      padding: 30px;
+    }
 
-        /* Neon Text Effect */
-        .neon-text {
-            font-size: 64px;
-            font-weight: bold;
-            color: #0ff;
-            text-shadow: 
-                0 0 10px #0ff,
-                0 0 20px #0ff,
-                0 0 30px #0ff,
-                0 0 40px #0ff,
-                0 0 70px #0ff,
-                0 0 80px #0ff,
-                0 0 100px #0ff,
-                0 0 150px #0ff;
-            letter-spacing: 3px;
-            animation: neon-flicker 2s infinite;
-        }
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #00f7ff;
+      text-shadow: 0 0 20px #00f7ff;
+      margin-bottom: 30px;
+    }
 
-        .neon-text.pink {
-            color: #ff006e;
-            text-shadow: 
-                0 0 10px #ff006e,
-                0 0 20px #ff006e,
-                0 0 30px #ff006e,
-                0 0 40px #ff006e,
-                0 0 70px #ff006e,
-                0 0 80px #ff006e,
-                0 0 100px #ff006e,
-                0 0 150px #ff006e;
-        }
+    .game-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
 
-        /* Animations */
-        @keyframes neon-flicker {
-            0%, 100% {
-                text-shadow: 
-                    0 0 10px #0ff,
-                    0 0 20px #0ff,
-                    0 0 30px #0ff,
-                    0 0 40px #0ff,
-                    0 0 70px #0ff,
-                    0 0 80px #0ff,
-                    0 0 100px #0ff,
-                    0 0 150px #0ff;
-            }
-            50% {
-                text-shadow: 
-                    0 0 5px #0ff,
-                    0 0 10px #0ff,
-                    0 0 15px #0ff,
-                    0 0 20px #0ff,
-                    0 0 35px #0ff,
-                    0 0 40px #0ff,
-                    0 0 50px #0ff,
-                    0 0 75px #0ff;
-            }
-        }
-    </style>
+    .player-zone {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .bet-box {
+      background: rgba(0,255,255,0.08);
+      border: 2px solid #00f7ff;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(0,247,255,0.4);
+      transition: 0.3s;
+    }
+
+    .puck-zone {
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .puck {
+      width: 80px;
+      height: 80px;
+      background: #ff00d4;
+      border-radius: 50%;
+      box-shadow: 0 0 25px #ff00d4;
+      transition: transform 1s ease;
+    }
+
+    input {
+      width: 180px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+    }
+
+    button {
+      background: #00f7ff;
+      color: black;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00f7ff;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      color: #fff;
+      min-height: 40px;
+    }
+  </style>
 </head>
 <body>
-    <div class="neon-container">
-        <h1 class="neon-text">wsg</h1>
-        <h2 class="neon-text pink">kasino</h2>
+  <div class="container">
+    <h1>WSG Kasino</h1>
+
+    <div class="game-area">
+      <div class="player-zone">
+        <h2>Игрок 1</h2>
+        <div id="box1" class="bet-box" style="width: 180px; height: 180px;">1 TON</div>
+        <input id="bet1" type="number" placeholder="Ставка TON" min="1" />
+      </div>
+
+      <div class="puck-zone">
+        <div id="puck" class="puck"></div>
+        <button onclick="startGame()">Начать</button>
+      </div>
+
+      <div class="player-zone">
+        <h2>Игрок 2</h2>
+        <div id="box2" class="bet-box" style="width: 220px; height: 220px;">5 TON</div>
+        <input id="bet2" type="number" placeholder="Ставка TON" min="1" />
+      </div>
     </div>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    function updateBoxes(b1, b2) {
+      const box1 = document.getElementById('box1');
+      const box2 = document.getElementById('box2');
+
+      const size1 = 120 + (b1 * 15);
+      const size2 = 120 + (b2 * 15);
+
+      box1.style.width = size1 + 'px';
+      box1.style.height = size1 + 'px';
+      box1.textContent = b1 + ' TON';
+
+      box2.style.width = size2 + 'px';
+      box2.style.height = size2 + 'px';
+      box2.textContent = b2 + ' TON';
+    }
+
+    function startGame() {
+      const bet1 = parseInt(document.getElementById('bet1').value) || 1;
+      const bet2 = parseInt(document.getElementById('bet2').value) || 1;
+      const puck = document.getElementById('puck');
+      const result = document.getElementById('result');
+
+      updateBoxes(bet1, bet2);
+      result.textContent = 'Шайба крутится...';
+
+      const total = bet1 + bet2;
+      const random = Math.random() * total;
+      const winner = random <= bet1 ? 1 : 2;
+
+      puck.style.transform = winner === 1
+        ? 'translateX(-180px)'
+        : 'translateX(180px)';
+
+      setTimeout(() => {
+        result.textContent = `Победил Игрок ${winner}!`;
+      }, 1200);
+    }
+  </script>
 </body>
 </html>
