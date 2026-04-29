@@ -144,7 +144,7 @@ button:hover{transform:scale(1.02);}
 
     <div class="card">
       <h2>Запуск</h2>
-      <button onclick="spinWheel()">Крутить рулетку</button>
+      <button disabled>Ожидание ставок...</button>
     </div>
   </div>
 
@@ -153,6 +153,18 @@ button:hover{transform:scale(1.02);}
 
 <script>
 let currentRotation = 0;
+
+function autoStartCheck() {
+  const bet1 = parseInt(document.getElementById('bet1').value) || 0;
+  const bet2 = parseInt(document.getElementById('bet2').value) || 0;
+
+  if (bet1 > 0 && bet2 > 0) {
+    spinWheel();
+  }
+}
+
+document.getElementById('bet1').addEventListener('input', autoStartCheck);
+document.getElementById('bet2').addEventListener('input', autoStartCheck);
 
 function spinWheel(){
   const bet1 = parseInt(document.getElementById('bet1').value) || 1;
